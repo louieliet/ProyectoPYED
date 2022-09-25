@@ -2,16 +2,11 @@
 
 class User{
 public:
-	User(const string& username = "NULL", const string& password = "NULL") {
+	User(const int& Idx = 9999999, const string& username = "NULL", const string& password = "NULL") {
 
-		setIdx();
+		this->Idx = Idx;
 		setUsername(username);
 		setPassword(password);
-	}
-
-	void setIdx(){	
-		srand((int)time(0));
-		this->Idx = (rand() % (MAX_USERS - 1) + 1);
 	}
 
 	void setUsername(const string& username) {
