@@ -17,6 +17,8 @@ void LogIn()
 
     ifstream file{"users.dat", ios::in};
 
+    if(!file){cerr << "File could not be opened :s" << endl; exit(EXIT_FAILURE);}
+
     for(int i = 0; i < MAX_USERS; i++)
     {
 
