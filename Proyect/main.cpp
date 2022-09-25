@@ -12,5 +12,5 @@ int main()
     MakeEmptyUsersFile();
     MakeUsersFile(list);
 
-    LogIn(list);
+    LogIn();
 }

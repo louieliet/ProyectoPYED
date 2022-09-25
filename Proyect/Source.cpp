@@ -1,10 +1,13 @@
 #include "User.h"
 
-void LogIn(vector<User> list)
+void LogIn()
 {
     string u,p;
     bool login;
     bool flag = false;
+
+    system("cls");
+
     cout << left << setw(20) << "Bienvenido" << endl;
     cout << "Username:" << setw(10) << endl;
     cin >> u; 
@@ -14,16 +17,17 @@ void LogIn(vector<User> list)
 
     ifstream file{"users.dat", ios::in};
 
-    for(auto i : list)
+    for(int i = 0; i < MAX_USERS; i++)
     {
+
         User verify;
-        file.seekg( (i.getIdx() - 1 ) * sizeof(User) );
+        file.seekg( i * sizeof(User) );
         file.read(reinterpret_cast<char*>(&verify),sizeof(User));
 
         if(u == verify.getUser())
         {
             flag = true;
-            
+
             if(p == verify.getPassword())
             {
                 cout << "Welcome" << endl;
@@ -34,15 +38,10 @@ void LogIn(vector<User> list)
                 cout << "Incorrect password" << endl;
                 break;
             }
-
-
         }
-
     }
     if(flag == false){
         cout << "User not founded" << endl;
     }
-
-
 
 }
