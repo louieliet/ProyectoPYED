@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     
-    User u1("0241718","caca123");
+    User u1("0241718","password");
     Estudiante s1(u1.getIdx(),u1.getID(),"Emiliano");
 
     vector<User> Users;
