@@ -39,10 +39,6 @@ int MakeUsersFile(vector<User> list){
 
 
 
-
-
-
-
 int MakeEmptyStudentsFile(){
 
     ofstream file{ "students.dat", ios::out | ios::binary };
