@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Teacher.h"
 
 void LogIn()
 {
@@ -16,6 +17,7 @@ void LogIn()
 
 
     ifstream file{"users.dat", ios::in};
+    ifstream file2{"Teachers.dat", ios::in};
 
     if(!file){cerr << "File could not be opened :s" << endl; exit(EXIT_FAILURE);}
 
@@ -32,8 +34,16 @@ void LogIn()
 
             if(p == verify.getPassword())
             {
-                cout << "Welcome" << endl;
-                break;
+                Teacher name;
+                for(int i = 0; i < MAX_USERS; i++)
+                {
+                    file2.seekg( i * sizeof(Teacher) );
+                    file2.read(reinterpret_cast<char*>(&name),sizeof(Teacher));
+                    if( verify.getUser() == name.getUser() ){
+                        cout << "Welcome, " << name.getTeacherName() << endl;
+                        break;
+                    }
+                }
             }
             else
             {
