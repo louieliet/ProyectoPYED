@@ -41,6 +41,8 @@ void LogIn()
                     file2.read(reinterpret_cast<char*>(&name),sizeof(Teacher));
                     if( verify.getUser() == name.getUser() ){
                         cout << "Welcome, " << name.getTeacherName() << endl;
+                        file.close();
+                        file2.close();
                         break;
                     }
                 }
@@ -49,11 +51,15 @@ void LogIn()
             {
                 cout << "Incorrect password" << endl;
                 break;
+                file.close();
+                file2.close();
             }
         }
     }
     if(flag == false){
         cout << "User not founded" << endl;
+        file.close();
+        file2.close();
     }
 
 }
