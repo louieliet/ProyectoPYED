@@ -77,9 +77,10 @@ void InsertTeachers(Node &raiz){
 
     ifstream file{"Teachers.dat", ios::in};
 
+    Teacher lTemp;
+    
     for(int i = 0; i < MAX_USERS; i++){ 
 
-        Teacher lTemp;
         file.seekg( i * sizeof(User) );
         file.read(reinterpret_cast<char*>(&lTemp),sizeof(Teacher));
 

@@ -19,6 +19,5 @@ int main()
 
     InsertTeachers(teacherstree);
     Preorden(teacherstree);
-
     
 }
