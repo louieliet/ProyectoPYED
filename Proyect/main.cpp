@@ -3,19 +3,22 @@
 
 int main()
 {
-    vector<User> list;
-    vector<Teacher> list2;
-    User u1(1, "0241718","password");
-    list.push_back(u1);
-    Teacher t1(1, "EmilianoMontes", u1.getUser());
-    list2.push_back(t1);
+    Teacher t1(1,"Z","0241718");
+    Teacher t2(1,"Abril","0241718");
+    Teacher t3(1,"Emi","0241718");
 
+    Node teacherstree = NULL;
 
-    MakeEmptyUsersFile();
-    MakeUsersFile(list);
+    vector<Teacher> list;
+    list.push_back(t1);
+    list.push_back(t2);
+    list.push_back(t3);
 
     MakeEmptyTeachersFile();
-    MakeTeachersFile(list2);
+    MakeTeachersFile(list);
 
-    LogIn();
+    InsertTeachers(teacherstree);
+    Preorden(teacherstree);
+
+    
 }

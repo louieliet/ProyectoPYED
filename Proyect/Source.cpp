@@ -63,3 +63,49 @@ void LogIn()
     }
 
 }
+
+
+typedef struct NodeStruct* Node;
+
+struct NodeStruct{
+    string valor;
+    struct NodeStruct* left;
+    struct NodeStruct* right;
+};
+
+void InsertTeachers(Node &raiz){
+
+    ifstream file{"Teachers.dat", ios::in};
+
+    for(int i = 0; i < MAX_USERS; i++){ 
+
+        Teacher lTemp;
+        file.seekg( i * sizeof(User) );
+        file.read(reinterpret_cast<char*>(&lTemp),sizeof(Teacher));
+
+        if(raiz == NULL){
+            Node newnode = new (struct NodeStruct);
+            newnode->valor = lTemp.getTeacherName();
+            newnode->left = NULL;
+            newnode->right = NULL;
+            raiz = newnode;
+        }
+        else{
+            if(lTemp.getTeacherName() < raiz->valor){
+                InsertTeachers(raiz->left);
+            }
+            else if(lTemp.getTeacherName() > raiz->valor){
+                InsertTeachers(raiz->right);
+            }
+        }
+    }
+}
+
+void Preorden(Node raiz){
+    if(raiz != NULL){
+        cout << raiz->valor << ", ";
+        Preorden(raiz->left);
+        Preorden(raiz->right);
+    }
+}
+
