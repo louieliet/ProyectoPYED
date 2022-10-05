@@ -53,6 +53,7 @@ public:
 
     bool isEmpty(void);
     void repr(bool pRev = false);
+    string aHeadver(void);
     //void read(string pPath, char pMethod = 'b');
     //void write(string pPath, bool pRev = false);
 
