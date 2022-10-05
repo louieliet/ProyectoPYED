@@ -1,12 +1,6 @@
 #include "Listas.h"
 
-string DLIndex::aHeadver(){
-    if(aHead==NULL){
-        return "vacio";
-    }else{
-        return "algo"; 
-    }
-}
+
 
 DLIndex::DLIndex(ECampos pType, bool pFrec)
 {
@@ -68,7 +62,6 @@ void DLIndex::push_back(PDATA pData) //hace un push en el tail, tiene la misma l
 
 void DLIndex::push(PDATA pData) //hace un push normal
 {
-    cout << "verificador de ahead - "<<aHeadver()<<endl;
     if (aHead == NULL) { //si no hay aHead, crea el primer nodo de la lista
         aHead = getNewNode(pData);
         aTail = aHead;
@@ -322,7 +315,6 @@ void DList::push_back(string pNombre, string pSalon, string pProfesor, string pD
     if (aHead == NULL) {
         cout << "Hola" << endl;
         aHead = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad);
-
         aTail = aHead;
 
         aINom->push(aHead->sData);
@@ -517,7 +509,7 @@ public:
 
 aClase::aClase() {
 
-    //aux = DList();
+    aux = DList();
     ynombre = "";
     yprofesor = "";
     ysalon = "";
