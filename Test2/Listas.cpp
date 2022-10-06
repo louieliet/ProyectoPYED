@@ -1,10 +1,11 @@
 #include "Listas.h"
 
-string DLIndex::aHeadver(){
-    if(aHead==NULL){
+string DLIndex::aHeadver() {
+    if (aHead == NULL) {
         return "vacio";
-    }else{
-        return "algo"; 
+    }
+    else {
+        return "algo";
     }
 }
 
@@ -68,7 +69,7 @@ void DLIndex::push_back(PDATA pData) //hace un push en el tail, tiene la misma l
 
 void DLIndex::push(PDATA pData) //hace un push normal
 {
-    cout << "verificador de ahead - "<<aHeadver()<<endl;
+    cout << "verificador de ahead - " << aHeadver() << endl;
     if (aHead == NULL) { //si no hay aHead, crea el primer nodo de la lista
         aHead = getNewNode(pData);
         aTail = aHead;
@@ -483,7 +484,7 @@ void DList::modify(ECampos pCampo, string pNombre) {
     if (lTemp) {
 
         cout << "Ingrese el nuevo dato: " << endl;
-        cin >> newdata;
+        getline(cin,newdata);
         switch (pCampo) {
 
         case ECampos::nombre: lTemp->sData->sNombre = newdata; break;
@@ -526,12 +527,13 @@ aClase::aClase() {
 }
 
 void aClase::addClase() {
+    cout << "Se va a agregar una materia nueva "<<endl;
     cout << "Ingrese el nombre de la materia: ";
-    cin >> ynombre;
+    getline(cin, ynombre);
     cout << "Ingrese el salon: ";
-    cin >> ysalon;
+    getline(cin, ysalon);
     cout << "Ingrese el ID del profesor: ";
-    cin >> yprofesor;
+    getline(cin, yprofesor);
     yDisponibilidad = "Disponible";
 
     aux.push_back(ynombre, ysalon, yprofesor, yDisponibilidad);
@@ -540,13 +542,15 @@ void aClase::addClase() {
 void aClase::ModificarDatoDeClase() {
     string pNombre;
     int auxiliar;
-    cout << "Ingrese el nombre de la materia: " << endl;
-    cin >> pNombre;
+    cout << "Modificar datos" << endl;
+    cout << "Ingrese el nombre de la materia: ";
+    getline(cin, pNombre);
     cout << "Ingrese el número del dato que se desea cambiar" << endl;
-    cout << "1. nombre";
-    cout << "2. Salon";
+    cout << "1. nombre"<<endl;
+    cout << "2. Salon"<<endl;
     cout << "3. Profesor" << endl;
     cin >> auxiliar;
+    cin.ignore();
     switch (auxiliar) {
     case 1: aux.modify(ECampos::nombre, pNombre); break;
     case 2: aux.modify(ECampos::salon, pNombre); break;
@@ -557,7 +561,7 @@ void aClase::ModificarDatoDeClase() {
 void aClase::EliminarClase() {
     string name;
     cout << "Ingrese el nombre de la clase a eliminar: " << endl;
-    cin >> name;
+    getline(cin, name);
     aux.del(name);
 }
 
@@ -577,6 +581,7 @@ int main() {
         cout << "3. Eliminar una clase" << endl;
         cout << "4. Mostrar Clases " << endl;
         cin >> opci;
+        cin.ignore();
         switch (opci) {
         case 1: sob.addClase(); break;
         case 2: sob.ModificarDatoDeClase(); break;
@@ -588,5 +593,4 @@ int main() {
     } while (opci != 5);
 
 }
-
 
