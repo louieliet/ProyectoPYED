@@ -484,7 +484,7 @@ void DList::modify(ECampos pCampo, string pNombre) {
     if (lTemp) {
 
         cout << "Ingrese el nuevo dato: " << endl;
-        cin >> newdata;
+        getline(cin,newdata);
         switch (pCampo) {
 
         case ECampos::nombre: lTemp->sData->sNombre = newdata; break;
@@ -550,6 +550,7 @@ void aClase::ModificarDatoDeClase() {
     cout << "2. Salon"<<endl;
     cout << "3. Profesor" << endl;
     cin >> auxiliar;
+    cin.ignore();
     switch (auxiliar) {
     case 1: aux.modify(ECampos::nombre, pNombre); break;
     case 2: aux.modify(ECampos::salon, pNombre); break;
