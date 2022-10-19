@@ -1,0 +1,25 @@
+Nombre,Salon,ID Profesor,Disponible,ID
+Matematicas aplicadas,R23,1020,Disponible,1
+Calculo,D08,1020,Disponible,2
+Desarrollo Web,R16,1200,Disponible,3
+Estructura de Datos,C1,2303,Disponible,4
+POO,Lab 2,2304,Disponible,5
+Programacion avanzada,Lab 2,2344,Disponible,6
+Calculo,NR05,1032,Disponible,7
+Fisica,C2,2031,Disponible,8
+Quimica,D06,3333,Disponible,9
+Quimica,R5,4532,Disponible,10
+Electricidad,R17,100,Disponible,11
+Termodinamica,NR7,45,Disponible,12
+Termodinamica,C2,1043,Disponible,13
+Algebra,P2,2012,Disponible,14
+Algebra Lineal,Lab 1,2011,Disponible,15
+Ecuaciones,Lab 2,2001,Disponible,16
+Base de datos,CDC C,1001,Disponible,17
+Ciberseguridad,CDC A,98,Disponible,18
+Inteligencia Artificial,Lab2 ,12,Disponible,19
+Inteligencia Artificial,Lab 2,433,Disponible,20
+Inteligencia Artificial,CDC B,233,Disponible,21
+Computo Forense,P3,443,Disponible,22
+Salud,D02,1002,Disponible,23
+Ecuaciones diferenciales,D01,2007,Disponible,34
