@@ -13,6 +13,7 @@ struct Materia {
     string sSalon;
     string sProfesor;
     string sDisponibilidad;
+    string sID;
 };
 
 struct DNODE {
@@ -22,7 +23,8 @@ struct DNODE {
     PDNODE sNext;
 };
 
-enum class ECampos { nombre, salon, profesor, disponibilidad };
+enum class ECampos { nombre, salon, profesor, disponibilidad, id};
+
 
 class DLIndex
 {
@@ -75,6 +77,7 @@ protected:
     DLIndex* aISalon;
     DLIndex* aIProf;
     DLIndex* aIDis;
+    DLIndex* aIID;
 
 public:
     DList(bool pFrec = false);
@@ -83,7 +86,7 @@ public:
     void clean(void);
 
     //void push_front(string pNombre);
-    void push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad);
+    void push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID);
     //void push(string pNombre);
 
     //PDNODE top_front(void);
@@ -96,11 +99,14 @@ public:
     bool isEmpty(void);
     void repr(ECampos pCampo, bool pRev = false);
     void modify(ECampos, string);
+
+    void read(string pPath);
+    void write(string pPath);
     //void read(string pPath, char pMethod = 'b');
     //void write(string pPath, bool pRev = false);
 
 private:
-    PDNODE find(string pNombre);
+    PDNODE find(string pID);
     //PDNODE search(string pNombre);
-    PDNODE getNewNode(string pNombre, string pSalon, string pProfesor, string pDisponibilidad);
+    PDNODE getNewNode(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID);
 }; //DINDEX
