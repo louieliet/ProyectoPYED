@@ -1,4 +1,5 @@
 #include "Listas.h"
+#include "CSV.h"
 
 string DLIndex::aHeadver() {
     if (aHead == NULL) {
@@ -164,9 +165,9 @@ void DLIndex::pop_back(void) // borra la ultima dirección de memoria, actúa pa
 void DLIndex::del(PDATA pData) //borra un elemento cualquiera de la lista
 {
     if (aHead) { //verifica que la lista exista
-        if (aHead->sData->sNombre == pData->sNombre) //si el string que se quiere borrar es igual al nombre guardado en aHead, hace un pop_front
+        if (aHead->sData == pData ) //si el string que se quiere borrar es igual al nombre guardado en aHead, hace un pop_front
             pop_front();
-        else if (aTail->sData->sNombre == pData->sNombre) //si el string que se quiere borrar es igual al nombre guardado en aTail, hace un pop_back
+        else if (aTail->sData == pData ) //si el string que se quiere borrar es igual al nombre guardado en aTail, hace un pop_back
             pop_back();
         else { //si no está ni en aHead ni aTail
             PDNODE lTemp = find(pData); //busca dónde está el nombre
@@ -193,6 +194,7 @@ void DLIndex::repr(bool pRev) //solo imprime los datos guardados en la lista, ya
         while (lTemp) {
             cout << " -> ";
             cout << "[" << lTemp->sData->sNombre << ",";
+            cout << lTemp->sData->sID << ",";
             cout << lTemp->sData->sSalon << ",";
             cout << lTemp->sData->sProfesor << ",";
             cout << lTemp->sData->sDisponibilidad << "]";
@@ -228,6 +230,12 @@ int DLIndex::comp(PDATA pA, PDATA pB) {
         else if (pA->sDisponibilidad == pB->sDisponibilidad) lRes = 0;
         else lRes = 1;
         break;
+    case ECampos::id:
+        if (pA->sID < pB->sID) lRes = -1;
+        else if (pA->sID == pB->sID) lRes = 0;
+        else lRes = 1;
+        break;
+
     }
 
     return lRes;
@@ -239,7 +247,7 @@ PDNODE DLIndex::find(PDATA pData) // solo busca que sea igual a un nombre en una
     PDNODE lTemp = aHead;
 
     while (lTemp) {
-        if (comp(pData, lTemp->sData) == 0)
+        if (pData == lTemp->sData)
             return lTemp;
         lTemp = lTemp->sNext;
     }
@@ -290,6 +298,7 @@ DList::DList(bool pFrec)
     aISalon = new DLIndex(ECampos::salon);
     aIProf = new DLIndex(ECampos::profesor);
     aIDis = new DLIndex(ECampos::disponibilidad);
+    aIID = new DLIndex(ECampos::id);
 } // Constructor
 
 DList::~DList(void)
@@ -299,6 +308,7 @@ DList::~DList(void)
     if (aISalon) delete aISalon;
     if (aIProf) delete aIProf;
     if (aIDis) delete aIDis;
+    if (aIID) delete aIID;
     // cout << "Bye!" << endl;
 } // Destructor
 
@@ -318,11 +328,11 @@ void DList::clean(void)
 } // clean
 
 
-void DList::push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad) //hace un push en el tail, tiene la misma lógica que el push_front
+void DList::push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID) //hace un push en el tail, tiene la misma lógica que el push_front
 {
     if (aHead == NULL) {
         cout << "Hola" << endl;
-        aHead = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad);
+        aHead = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad,pID);
 
         aTail = aHead;
 
@@ -330,9 +340,10 @@ void DList::push_back(string pNombre, string pSalon, string pProfesor, string pD
         aISalon->push(aHead->sData);
         aIProf->push(aHead->sData);
         aIDis->push(aHead->sData);
+        aIID->push(aHead->sData);
     }
     else {
-        PDNODE lTemp = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad);
+        PDNODE lTemp = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad, pID);
         aTail->sNext = lTemp;
         lTemp->sPrev = aTail;
         aTail = lTemp;
@@ -340,6 +351,7 @@ void DList::push_back(string pNombre, string pSalon, string pProfesor, string pD
         aISalon->push(lTemp->sData);
         aIProf->push(lTemp->sData);
         aIDis->push(lTemp->sData);
+        aIID->push(lTemp->sData);
     }
 }
 // push_back
@@ -357,6 +369,7 @@ PDATA DList::get(ECampos pCampo, bool pRev) ///te da la direccion de memoria don
     case ECampos::salon: lTemp = aISalon->get(pRev); break;
     case ECampos::profesor: lTemp = aIProf->get(pRev); break;
     case ECampos::disponibilidad: lTemp = aIDis->get(pRev); break;
+    case ECampos::id: lTemp = aIID->get(pRev); break;
     }
 
 
@@ -400,19 +413,20 @@ void DList::pop_back(void) // borra la ultima dirección de memoria, actúa pare
     }
 } // pop_back
 
-void DList::del(string pNombre) //borra un elemento cualquiera de la lista
+void DList::del(string pID) //borra un elemento cualquiera de la lista
 {
-    PDNODE lTemp = find(pNombre);
+    PDNODE lTemp = find(pID);
     if (lTemp) {
         aINom->del(lTemp->sData);
         aISalon->del(lTemp->sData);
         aIProf->del(lTemp->sData);
         aIDis->del(lTemp->sData);
+        aIID->del(lTemp->sData);
     }
-    if (aHead->sData->sNombre == pNombre) {
+    if (aHead->sData->sID == pID) {
         pop_front();
     }
-    else if (aTail->sData->sNombre == pNombre) {
+    else if (aTail->sData->sID == pID) {
         pop_back();
     }
     else {
@@ -421,6 +435,8 @@ void DList::del(string pNombre) //borra un elemento cualquiera de la lista
                 aCurr = lTemp->sNext;
             lTemp->sPrev->sNext = lTemp->sNext;
             lTemp->sNext->sPrev = lTemp->sPrev;
+            if (lTemp->sData)
+                delete lTemp->sData;
             delete lTemp;
         }
     }
@@ -439,18 +455,45 @@ void DList::repr(ECampos pCampo, bool pRev) //solo imprime los datos guardados e
         case ECampos::salon:aISalon->repr(pRev); break;
         case ECampos::profesor: aIProf->repr(pRev); break;
         case ECampos::disponibilidad: aIDis->repr(pRev); break;
+        case ECampos::id: aIID->repr(pRev); break;
         }
 
     }
 } // repr
 
+void DList::read(string pPath) {
+    CSVReader lReader = CSVReader(pPath);
+    TCSVTbl lTbl = lReader.read();
 
-PDNODE DList::find(string pNombre) // solo busca que sea igual a un nombre en una dirección de memoria, si no, regresa NULL
+    if (lTbl.size() > 0) {
+        for (size_t lCol = 0; lCol < lTbl.size(); lCol++) {
+            push_back(lTbl[lCol][0], lTbl[lCol][1], lTbl[lCol][2], lTbl[lCol][3], lTbl[lCol][4]);
+        }
+    }
+}
+
+void DList::write(string pPath)
+{
+    if (aHead) {
+        CSVWriter lWriter = CSVWriter(pPath);
+        PDNODE lTemp = aHead;
+        while (lTemp) {
+            lWriter.write(lTemp->sData->sNombre);
+            lWriter.write(lTemp->sData->sSalon);
+            lWriter.write(lTemp->sData->sProfesor);
+            lWriter.write(lTemp->sData->sDisponibilidad);
+            lWriter.write(lTemp->sData->sID);
+            lWriter.writeeol();
+            lTemp = lTemp->sNext;
+        }
+    }
+} // write
+PDNODE DList::find(string pID) // solo busca que sea igual a un nombre en una dirección de memoria, si no, regresa NULL
 {
     PDNODE lTemp = aHead;
 
     while (lTemp) {
-        if (pNombre == lTemp->sData->sNombre)
+        if (pID == lTemp->sData->sID)
             return lTemp;
         lTemp = lTemp->sNext;
     }
@@ -458,7 +501,7 @@ PDNODE DList::find(string pNombre) // solo busca que sea igual a un nombre en un
     return NULL;
 } // find 
 
-PDNODE DList::getNewNode(string pNombre, string pSalon, string pProfesor, string pDisponibilidad) //te da un nodo nuevo
+PDNODE DList::getNewNode(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID) //te da un nodo nuevo
 {
     PDNODE lTemp = new DNODE; //crea un nuevo nodo de la estructura DNODE
 
@@ -469,6 +512,7 @@ PDNODE DList::getNewNode(string pNombre, string pSalon, string pProfesor, string
             lTemp->sData->sSalon = pSalon;//le pone el string en el nombre
             lTemp->sData->sProfesor = pProfesor;
             lTemp->sData->sDisponibilidad = pDisponibilidad;
+            lTemp->sData->sID = pID;
         }
         lTemp->sFrec = 1; //empieza con frecuencia de 1
         lTemp->sNext = NULL; //por el momento su next y prev son nulos 
@@ -484,14 +528,14 @@ void DList::modify(ECampos pCampo, string pNombre) {
     if (lTemp) {
 
         cout << "Ingrese el nuevo dato: " << endl;
-        getline(cin,newdata);
+        getline(cin, newdata);
         switch (pCampo) {
 
         case ECampos::nombre: lTemp->sData->sNombre = newdata; break;
         case ECampos::salon: lTemp->sData->sSalon = newdata; break;
         case ECampos::profesor: lTemp->sData->sProfesor = newdata; break;
         case ECampos::disponibilidad: lTemp->sData->sDisponibilidad = newdata; break;
-
+        case ECampos::id: lTemp->sData->sID = newdata; break;
 
         }
     }
@@ -506,6 +550,7 @@ protected:
     string yprofesor;
     string ysalon;
     string yDisponibilidad;
+    string yID;
     DList aux;
 
 public:
@@ -514,12 +559,15 @@ public:
     void ModificarDatoDeClase(void);
     void EliminarClase();
     void mostrarClases();
+    void InsertData();
+    void GuardarData();
 };
 
 aClase::aClase() {
 
     //aux = DList();
     ynombre = "";
+    yID = "";
     yprofesor = "";
     ysalon = "";
     yDisponibilidad = "";
@@ -527,7 +575,9 @@ aClase::aClase() {
 }
 
 void aClase::addClase() {
-    cout << "Se va a agregar una materia nueva "<<endl;
+    cout << "Se va a agregar una materia nueva " << endl;
+    cout << "Ingrese el ID de la materia: ";
+    getline(cin, yID);
     cout << "Ingrese el nombre de la materia: ";
     getline(cin, ynombre);
     cout << "Ingrese el salon: ";
@@ -536,37 +586,54 @@ void aClase::addClase() {
     getline(cin, yprofesor);
     yDisponibilidad = "Disponible";
 
-    aux.push_back(ynombre, ysalon, yprofesor, yDisponibilidad);
+    aux.push_back(ynombre, ysalon, yprofesor, yDisponibilidad, yID);
+
+    aux.write("Libro2.csv");
 }
 
 void aClase::ModificarDatoDeClase() {
     string pNombre;
     int auxiliar;
     cout << "Modificar datos" << endl;
-    cout << "Ingrese el nombre de la materia: ";
+    cout << "Ingrese el ID de la materia: ";
     getline(cin, pNombre);
     cout << "Ingrese el número del dato que se desea cambiar" << endl;
-    cout << "1. nombre"<<endl;
-    cout << "2. Salon"<<endl;
+    cout << "1. nombre" << endl;
+    cout << "2. Salon" << endl;
     cout << "3. Profesor" << endl;
+    cout << "4. ID" << endl;
     cin >> auxiliar;
     cin.ignore();
     switch (auxiliar) {
     case 1: aux.modify(ECampos::nombre, pNombre); break;
     case 2: aux.modify(ECampos::salon, pNombre); break;
     case 3: aux.modify(ECampos::profesor, pNombre); break;
+    case 4:aux.modify(ECampos::id, pNombre); break;
     }
+
+    aux.write("Libro2.csv");
 }
 
 void aClase::EliminarClase() {
-    string name;
-    cout << "Ingrese el nombre de la clase a eliminar: " << endl;
-    getline(cin, name);
-    aux.del(name);
+    string idd;
+    cout << "Ingrese el ID de la clase a eliminar: " << endl;
+    getline(cin, idd);
+    aux.del(idd);
+
+    aux.write("Libro2.csv");
 }
 
 void aClase::mostrarClases() {
-    aux.repr(ECampos::nombre);
+    aux.repr(ECampos::id);
+}
+
+void aClase::InsertData() {
+    aux.read("Libro2.csv");
+
+}
+
+void aClase::GuardarData() {
+    aux.write("Libro2.csv");
 }
 
 int main() {
@@ -580,6 +647,8 @@ int main() {
         cout << "2. Modificar una clase" << endl;
         cout << "3. Eliminar una clase" << endl;
         cout << "4. Mostrar Clases " << endl;
+        cout << "5. Insertar datos " << endl;
+        cout << "6. Guardar datos" << endl;
         cin >> opci;
         cin.ignore();
         switch (opci) {
@@ -587,10 +656,11 @@ int main() {
         case 2: sob.ModificarDatoDeClase(); break;
         case 3: sob.EliminarClase(); break;
         case 4: sob.mostrarClases(); break;
+        case 5: sob.InsertData(); break;
+        case 6: sob.GuardarData(); break;
 
 
         }
-    } while (opci != 5);
+    } while (opci != 7);
 
 }
-
