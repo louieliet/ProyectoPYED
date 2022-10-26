@@ -1,5 +1,6 @@
 #include "Listas.h"
 #include "CSV.h"
+#include "Profesors.h"
 
 string DLIndex::aHeadver() {
     if (aHead == NULL) {
@@ -165,9 +166,9 @@ void DLIndex::pop_back(void) // borra la ultima dirección de memoria, actúa pa
 void DLIndex::del(PDATA pData) //borra un elemento cualquiera de la lista
 {
     if (aHead) { //verifica que la lista exista
-        if (aHead->sData == pData ) //si el string que se quiere borrar es igual al nombre guardado en aHead, hace un pop_front
+        if (aHead->sData == pData) //si el string que se quiere borrar es igual al nombre guardado en aHead, hace un pop_front
             pop_front();
-        else if (aTail->sData == pData ) //si el string que se quiere borrar es igual al nombre guardado en aTail, hace un pop_back
+        else if (aTail->sData == pData) //si el string que se quiere borrar es igual al nombre guardado en aTail, hace un pop_back
             pop_back();
         else { //si no está ni en aHead ni aTail
             PDNODE lTemp = find(pData); //busca dónde está el nombre
@@ -332,7 +333,7 @@ void DList::push_back(string pNombre, string pSalon, string pProfesor, string pD
 {
     if (aHead == NULL) {
         cout << "Hola" << endl;
-        aHead = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad,pID);
+        aHead = getNewNode(pNombre, pSalon, pProfesor, pDisponibilidad, pID);
 
         aTail = aHead;
 
@@ -554,6 +555,8 @@ protected:
     DList aux;
 
 public:
+    DListProf prof;
+    DListAlumno alumn;
     aClase();
     void addClase(void);
     void ModificarDatoDeClase(void);
@@ -575,20 +578,29 @@ aClase::aClase() {
 }
 
 void aClase::addClase() {
-    cout << "Se va a agregar una materia nueva " << endl;
-    cout << "Ingrese el ID de la materia: ";
-    getline(cin, yID);
-    cout << "Ingrese el nombre de la materia: ";
-    getline(cin, ynombre);
-    cout << "Ingrese el salon: ";
-    getline(cin, ysalon);
-    cout << "Ingrese el ID del profesor: ";
-    getline(cin, yprofesor);
-    yDisponibilidad = "Disponible";
+    if (!prof.isEmpty()) {
+        cout << "Se va a agregar una materia nueva " << endl;
+        cout << "Ingrese el ID de la materia: ";
+        getline(cin, yID);
+        cout << "Ingrese el nombre de la materia: ";
+        getline(cin, ynombre);
+        cout << "Ingrese el salon: ";
+        getline(cin, ysalon);
+        cout << "Ingrese el ID del profesor: ";
+        getline(cin, yprofesor);
+        while (prof.ExisteProfe(yprofesor) == NULL) {
+            cout << "ID incorrecto, ingrese otro: ";
+            getline(cin, yprofesor);
+        }
+        yDisponibilidad = "Disponible";
 
-    aux.push_back(ynombre, ysalon, yprofesor, yDisponibilidad, yID);
+        aux.push_back(ynombre, ysalon, yprofesor, yDisponibilidad, yID);
 
-    aux.write("Libro2.csv");
+        aux.write("Libro2.csv");
+    }
+    else {
+        cout << "No hay profesores registrados" << endl;
+    }
 }
 
 void aClase::ModificarDatoDeClase() {
@@ -636,6 +648,7 @@ void aClase::GuardarData() {
     aux.write("Libro2.csv");
 }
 
+
 int main() {
     aClase sob = aClase();
     int opci;
@@ -649,6 +662,12 @@ int main() {
         cout << "4. Mostrar Clases " << endl;
         cout << "5. Insertar datos " << endl;
         cout << "6. Guardar datos" << endl;
+        cout << "7. Agregar Profe" << endl;
+        cout << "8. Insertar Profesores" << endl;
+        cout << "9. Mostrar profesores" << endl;
+        cout << "10. Agregar Alumno" << endl;
+        cout << "11. Insertar Alumnos" << endl;
+        cout << "12. Mostrar Alumnos" << endl;
         cin >> opci;
         cin.ignore();
         switch (opci) {
@@ -658,9 +677,15 @@ int main() {
         case 4: sob.mostrarClases(); break;
         case 5: sob.InsertData(); break;
         case 6: sob.GuardarData(); break;
+        case 7: sob.prof.InsertarProfe(); break;
+        case 8: sob.prof.read("Profesores.csv"); break;
+        case 9: sob.prof.repr(); break;
+        case 10:sob.alumn.InsertarAlumno(); break;
+        case 11:sob.alumn.read("Alumnos.csv"); break;
+        case 12:sob.alumn.repr(); break;
 
 
         }
-    } while (opci != 7);
+    } while (opci != 13);
 
 }
