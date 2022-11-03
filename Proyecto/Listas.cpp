@@ -45,7 +45,7 @@ void DLIndex::push_front(PDATA pData) // Va a pushear un string
 {
     if (aHead == NULL) {
         aHead = getNewNode(pData);
-        aTail = aHead; //si la  lista está vacía, el atail y el ahead están en el mismo lugar
+        aTail = aHead; //si la  lista estÃ¡ vacÃ­a, el atail y el ahead estÃ¡n en el mismo lugar
     }
     else {
         PDNODE lTemp = getNewNode(pData);
@@ -56,7 +56,7 @@ void DLIndex::push_front(PDATA pData) // Va a pushear un string
 }
 // push_front 
 
-void DLIndex::push_back(PDATA pData) //hace un push en el tail, tiene la misma lógica que el push_front
+void DLIndex::push_back(PDATA pData) //hace un push en el tail, tiene la misma lÃ³gica que el push_front
 {
     if (aHead == NULL) {
         aHead = getNewNode(pData);
@@ -79,17 +79,17 @@ void DLIndex::push(PDATA pData) //hace un push normal
         aTail = aHead;
     }
     else { //si hay llista:
-        if (comp(pData, aHead->sData) <= 0) //verifica que el push sea menor o igual a la cabeza de la lista, si es así, mete un push_Front
+        if (comp(pData, aHead->sData) <= 0) //verifica que el push sea menor o igual a la cabeza de la lista, si es asÃ­, mete un push_Front
             push_front(pData);
-        else if (comp(pData, aTail->sData) >= 0) //verifica que el push sea mayor o igual a la cola de la lista, si es así, mete un push_back
+        else if (comp(pData, aTail->sData) >= 0) //verifica que el push sea mayor o igual a la cola de la lista, si es asÃ­, mete un push_back
             push_back(pData);
-        else { //si está en medio de la cabeza y cola
+        else { //si estÃ¡ en medio de la cabeza y cola
             PDNODE lItem = search(pData); //busca lugar disponible en la lista
-            if (lItem) { //si sí encuentra una dirección de memoria
-               /* if (aFrec && (lItem->sNombre == pNombre)) { //primero verifica si el nombre en esa direccion de memoria es igual al string dado, si es así, aumenta la frecuencia
+            if (lItem) { //si sÃ­ encuentra una direcciÃ³n de memoria
+               /* if (aFrec && (lItem->sNombre == pNombre)) { //primero verifica si el nombre en esa direccion de memoria es igual al string dado, si es asÃ­, aumenta la frecuencia
                     (lItem->sFrec)++;
                 }
-                else { //si no hay frecuencia y no son iguales, solamente añade un nuevo nodo con el string.*/
+                else { //si no hay frecuencia y no son iguales, solamente aÃ±ade un nuevo nodo con el string.*/
                 PDNODE lTemp = getNewNode(pData);
                 lTemp->sNext = lItem;
                 lTemp->sPrev = lItem->sPrev;
@@ -138,7 +138,7 @@ void DLIndex::pop_front(void) //borrar la direccion de memoria de aHead
     }
 } // pop_front
 
-void DLIndex::pop_back(void) // borra la ultima dirección de memoria, actúa parecido que el pop_front
+void DLIndex::pop_back(void) // borra la ultima direcciÃ³n de memoria, actÃºa parecido que el pop_front
 {
     bool lDo = true;
 
@@ -148,7 +148,7 @@ void DLIndex::pop_back(void) // borra la ultima dirección de memoria, actúa pare
         bool lEqual = (aTail == aCurr);
         delete aTail;
         aTail = lTemp;
-        if (aTail) { //solo que aquí cambia el sNext porque si es la ultima posición, debe ser nulo su next
+        if (aTail) { //solo que aquÃ­ cambia el sNext porque si es la ultima posiciÃ³n, debe ser nulo su next
             aTail->sNext = NULL;
             aCurr = (lEqual ? aTail : aCurr);
         }
@@ -172,8 +172,8 @@ void DLIndex::del(PDATA pData) //borra un elemento cualquiera de la lista
             pop_front();
         else if (aTail->sData == pData) //si el string que se quiere borrar es igual al nombre guardado en aTail, hace un pop_back
             pop_back();
-        else { //si no está ni en aHead ni aTail
-            PDNODE lTemp = find(pData); //busca dónde está el nombre
+        else { //si no estÃ¡ ni en aHead ni aTail
+            PDNODE lTemp = find(pData); //busca dÃ³nde estÃ¡ el nombre
             if (lTemp) { //si existe esa direccion de memoria
                 if (aCurr == lTemp)
                     aCurr = lTemp->sNext;
@@ -245,7 +245,7 @@ int DLIndex::comp(PDATA pA, PDATA pB) {
 }
 
 
-PDNODE DLIndex::find(PDATA pData) // solo busca que sea igual a un nombre en una dirección de memoria, si no, regresa NULL
+PDNODE DLIndex::find(PDATA pData) // solo busca que sea igual a un nombre en una direcciÃ³n de memoria, si no, regresa NULL
 {
     PDNODE lTemp = aHead;
 
@@ -258,7 +258,7 @@ PDNODE DLIndex::find(PDATA pData) // solo busca que sea igual a un nombre en una
     return NULL;
 } // find 
 
-PDNODE DLIndex::search(PDATA pData) //recorre la lista desde la cabeza hasta si el nombre buscado es igual al que hay en una dirección de memoria o menor
+PDNODE DLIndex::search(PDATA pData) //recorre la lista desde la cabeza hasta si el nombre buscado es igual al que hay en una direcciÃ³n de memoria o menor
 {
     PDNODE lTemp = aHead;
 
@@ -276,7 +276,7 @@ PDNODE DLIndex::getNewNode(PDATA pData) //te da un nodo nuevo
 {
     PDNODE lTemp = new DNODE; //crea un nuevo nodo de la estructura DNODE
 
-    if (lTemp) { //si sí te da una direccion de memoria
+    if (lTemp) { //si sÃ­ te da una direccion de memoria
         lTemp->sData = pData;
         lTemp->sFrec = 1; //empieza con frecuencia de 1
         lTemp->sNext = NULL; //por el momento su next y prev son nulos 
@@ -331,7 +331,7 @@ void DList::clean(void)
 } // clean
 
 
-void DList::push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID) //hace un push en el tail, tiene la misma lógica que el push_front
+void DList::push_back(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID) //hace un push en el tail, tiene la misma lÃ³gica que el push_front
 {
     if (aHead == NULL) {
         cout << "Hola" << endl;
@@ -384,28 +384,28 @@ void DList::pop_front(void) //borrar la direccion de memoria de aHead
 
     if (aHead) {
         PDNODE lTemp = aHead->sNext; //crea una direccion de memoria temporal con la siguiente direccion de memoria al aHead
-        bool lEqual = (aHead == aCurr); //si el aHead es igual al Acurr, lEqual será verdadero, sino falso
+        bool lEqual = (aHead == aCurr); //si el aHead es igual al Acurr, lEqual serÃ¡ verdadero, sino falso
         delete aHead; //borra el aHead
-        aHead = lTemp; //ahora el aHead será la variable temporal
+        aHead = lTemp; //ahora el aHead serÃ¡ la variable temporal
         if (aHead) { //si existe el aHead
-            aHead->sPrev = NULL; //el previo del aHead será nulo 
-            aCurr = (lEqual ? aHead : aCurr); //y aCurr será aHead si estaba en el aHead, sino seguirá siendo aCurr
+            aHead->sPrev = NULL; //el previo del aHead serÃ¡ nulo 
+            aCurr = (lEqual ? aHead : aCurr); //y aCurr serÃ¡ aHead si estaba en el aHead, sino seguirÃ¡ siendo aCurr
         }
-        else { //si no existe la lista, el aTail y el aCurr serán nulos
+        else { //si no existe la lista, el aTail y el aCurr serÃ¡n nulos
             aTail = NULL;
             aCurr = NULL;
         }
     }
 } // pop_front
 
-void DList::pop_back(void) // borra la ultima dirección de memoria, actúa parecido que el pop_front
+void DList::pop_back(void) // borra la ultima direcciÃ³n de memoria, actÃºa parecido que el pop_front
 {
     if (aHead) {
         PDNODE lTemp = aTail->sPrev;
         bool lEqual = (aTail == aCurr);
         delete aTail;
         aTail = lTemp;
-        if (aTail) { //solo que aquí cambia el sNext porque si es la ultima posición, debe ser nulo su next
+        if (aTail) { //solo que aquÃ­ cambia el sNext porque si es la ultima posiciÃ³n, debe ser nulo su next
             aTail->sNext = NULL;
             aCurr = (lEqual ? aTail : aCurr);
         }
@@ -491,7 +491,7 @@ void DList::write(string pPath)
         }
     }
 } // write
-PDNODE DList::find(string pID) // solo busca que sea igual a un nombre en una dirección de memoria, si no, regresa NULL
+PDNODE DList::find(string pID) // solo busca que sea igual a un nombre en una direcciÃ³n de memoria, si no, regresa NULL
 {
     PDNODE lTemp = aHead;
 
@@ -508,7 +508,7 @@ PDNODE DList::getNewNode(string pNombre, string pSalon, string pProfesor, string
 {
     PDNODE lTemp = new DNODE; //crea un nuevo nodo de la estructura DNODE
 
-    if (lTemp) { //si sí te da una direccion de memoria
+    if (lTemp) { //si sÃ­ te da una direccion de memoria
         lTemp->sData = new Materia;
         if (lTemp->sData) {
             lTemp->sData->sNombre = pNombre;
@@ -627,7 +627,7 @@ void aClase::ModificarDatoDeClase() {
     cout << "Modificar datos" << endl;
     cout << "Ingrese el ID de la materia: ";
     getline(cin, pNombre);
-    cout << "Ingrese el número del dato que se desea cambiar" << endl;
+    cout << "Ingrese el nÃºmero del dato que se desea cambiar" << endl;
     cout << "1. nombre" << endl;
     cout << "2. Salon" << endl;
     cout << "3. Profesor" << endl;
@@ -696,7 +696,7 @@ int main() {
 
     do {
 
-        cout << "Ingrese el número de lo que desea hacer: " << endl;
+        cout << "Ingrese el nÃºmero de lo que desea hacer: " << endl;
         cout << "1. Agregar una clase" << endl;
         cout << "2. Modificar una clase" << endl;
         cout << "3. Eliminar una clase" << endl;
