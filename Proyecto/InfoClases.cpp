@@ -1,4 +1,19 @@
 #include "InfoClases.h"
+#include <sstream>
+
+typedef vector <string> strVec;
+
+
+void strSplit(string& pStr, char pDelim, strVec& pOut)
+{
+	stringstream lStream(pStr);
+	string lChunk;
+	while (getline(lStream, lChunk, pDelim)) {
+		pOut.push_back(lChunk);
+		// cout << lChunk.c_str() << endl;
+	}
+} // strSplit
+
 
 
 DLVer::DLVer(void) {
@@ -435,6 +450,67 @@ void DLHor::push_front(string pClass, string ClassID, string IDAlum) {
 	}
 }
 
+void DLHor::write(string pPath)
+{
+	if (aHead) {
+		ofstream lFile(pPath);
+		if (lFile.is_open()) {
+			PHNODE lTemp = aHead;
+			while (lTemp) {
+				lFile << lTemp->sID << endl;
+				lFile << lTemp->sClas << endl;
+				if (lTemp->sVer) {
+					lTemp->sVer->resetCurr();
+					PVNODE lItem = NULL;
+					while (lItem = lTemp->sVer->get()) {
+						lFile << "\t" << lItem->ID << "|" << lItem->sCalif[0] << "|" << lItem->sCalif[1] << "|" << lItem->sCalif[2] << endl;
+					}
+				}
+				lTemp = lTemp->sNext;
+			}
+			lFile.close();
+		}
+	}
+} // write
+
+void DLHor::read(string pPath)
+{
+	string lLine = "";
+	ifstream lFile(pPath);
+	string lCat = "";
+	string lClas = "";
+	strVec lOut;
+	int num = 0;
+	if (lFile) {
+		cout << "hay archivo" << endl;
+	}
+	else {
+		cout << "No hay archivo" << endl;
+	}
+	while (getline(lFile, lLine)) {
+		if (lLine[0] != '\t') {
+			if (num == 0) {
+				lCat = lLine;
+				num++;
+			}
+			else if(num == 1) {
+				lClas = lLine;
+				num--;
+			}
+		}
+		else{
+			if (lCat != "") {
+				lLine.replace(lLine.find("\t"), 1, "");
+				strSplit(lLine, '|', lOut);
+				cout << lOut[0] << endl;
+				push_backLoad(lClas, lCat, lOut[0], stoi(lOut[1]), stoi(lOut[2]), stoi(lOut[3]));
+				lOut.clear();
+			}
+		}
+	}
+
+	lFile.close();
+} // read
 
 void DLHor::push_back(string pClass, string ClassID, string IDAlum) {
 	if (aHead == NULL) {
