@@ -53,6 +53,7 @@ public:
 	void read(string pPath);
 	void write(string pPath);
 
+	bool checkValid(string pNombre, string pPass);
 	string findContra(string usuario);
 	bool ExisteProfe(string pIDP);
 	bool isEmpty(void);
@@ -93,14 +94,16 @@ public:
 	void read(string pPath);
 	void write(string pPath);
 
+
+	bool checkValid(string pNombre, string pPass);
 	bool ExisteAlumno(string pIDP);
 	bool isEmpty(void);
 	void repr(void);
+	PDNODO2 find(string pIDP);
 
 private:
 	PDNODO2 getNewNode(string pIDP, string pNombre, string pCorreo, string pPassword);
 	PDNODO2 search(string pIDP);
-	PDNODO2 find(string pIDP);
 
 
 };
@@ -132,6 +135,7 @@ public:
 
 	string findContra(string usuario);
 	bool ExisteAdmin(string pIDP);
+	bool AdminValid(string pNombre, string pPass);
 	bool isEmpty(void);
 	void repr(void);
 

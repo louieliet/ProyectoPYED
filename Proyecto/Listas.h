@@ -104,6 +104,7 @@ public:
     void read(string pPath);
     void write(string pPath);
     string getName(string ID);
+    void reprprof(string pID);
     //void read(string pPath, char pMethod = 'b');
     //void write(string pPath, bool pRev = false);
 

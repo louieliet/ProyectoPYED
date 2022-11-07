@@ -39,13 +39,12 @@ public:
     void resetCurr(void);
 
     void del(string ID);
+    void inscrrepr(string pID);
 
     bool isEmpty(void);
     PVNODE get(void);
     void repr(bool pRev = false);
-
-    void read(string Path);
-    void write(string Path);
+    bool has(string pID);
 
 private:
     void push_front(string ID);
@@ -97,8 +96,12 @@ public:
     void repr(bool pRev = false);
     void read(string Path);
     void write(string Path);
+    void inscrrepr(string pID);
     //void read(string pPath);
    // void write(string pPath, bool pRev = false);
+
+       PHNODE find(string pID);
+
 
 private:
     void push_front(string pClass, string ClassID, string IDAlum);
@@ -108,7 +111,6 @@ private:
     void pop_front(void);
     void pop_back(void);
 
-    PHNODE find(string pID);
     PHNODE search(string pID);
     PHNODE getNewNode(string pClass, string ClassID);
 };

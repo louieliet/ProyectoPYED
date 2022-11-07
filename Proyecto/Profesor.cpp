@@ -891,6 +891,51 @@ PDNODO  DListAdmin::find(string pIDP) {
     return NULL;
 }
 
+bool DListAdmin::AdminValid(string pNombre, string pPass){
+    PDNODO lTemp = aHead;
+
+    while (lTemp) {
+        if (lTemp->sNombre == pNombre && lTemp->sPassword == pPass) {
+
+            return true;
+        }
+
+        lTemp = lTemp->sNext;
+    }
+
+    return false;
+}
+
+bool DListAlumno::checkValid(string pID, string pPass){
+    PDNODO2 lTemp = aHead;
+
+    while (lTemp) {
+        if (lTemp->sIDP == pID && lTemp->sPassword == pPass) {
+
+            return true;
+        }
+
+        lTemp = lTemp->sNext;
+    }
+
+    return false;
+};
+
+bool DListProf::checkValid(string pNombre, string pPass){
+    PDNODO lTemp = aHead;
+
+    while (lTemp) {
+        if (lTemp->sIDP == pNombre && lTemp->sPassword == pPass) {
+
+            return true;
+        }
+
+        lTemp = lTemp->sNext;
+    }
+
+    return false;
+};
+
 PDNODO DListAdmin::search(string pIDP) {
     PDNODO lTemp = aHead;
 

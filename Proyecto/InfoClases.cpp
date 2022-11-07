@@ -1,4 +1,19 @@
 #include "InfoClases.h"
+#include <sstream>
+
+typedef vector <string> strVec;
+
+
+void strSplit(string& pStr, char pDelim, strVec& pOut)
+{
+	stringstream lStream(pStr);
+	string lChunk;
+	while (getline(lStream, lChunk, pDelim)) {
+		pOut.push_back(lChunk);
+		// cout << lChunk.c_str() << endl;
+	}
+} // strSplit
+
 
 
 DLVer::DLVer(void) {
@@ -119,6 +134,24 @@ void DLVer::repr(bool pRev) {
 				cout << ", ";
 			}
 			lTemp = (pRev == false ? lTemp->sNext : lTemp->sPrev);
+		}
+	}
+}
+
+void DLVer::inscrrepr(string pID) {
+	if (aHead) {
+		PVNODE lTemp = (aHead);
+		while (lTemp) {
+			if(lTemp->ID == pID){
+				//cout << lTemp->sCalif.size();
+				cout << "Calificaciones: "; 
+				for (int i = 0; i < 3; i++) {
+					cout << lTemp->sCalif[i];
+					if(i<2)
+						cout << ", ";
+				}
+			}
+			lTemp = (lTemp->sNext);
 		}
 	}
 }
@@ -408,6 +441,37 @@ void DLHor::repr(bool pRev) {
 	}
 }
 
+void DLHor::inscrrepr(string pID) {
+	if (aHead) {
+		PHNODE lTemp = (aHead);
+		while (lTemp) {
+			if(lTemp->sVer->has(pID)){
+				cout << "-> ";
+				cout << "ID de la clase: " + lTemp->sID;
+				cout << " | Clase: " + lTemp->sClas << " (";
+				lTemp->sVer->inscrrepr(pID);
+				cout << ")" << endl;
+			}
+			lTemp = (lTemp->sNext);
+		}
+		cout << endl;
+	}
+}
+
+bool DLVer::has(string pID){
+	if(aHead){
+		PVNODE lTemp = aHead;
+		while(lTemp){
+			//cout << lTemp->ID << "?=" << pID << "==" << (lTemp->ID == pID) << endl;
+			if(lTemp->ID == pID){
+				return true;
+			}
+			lTemp = lTemp->sNext;
+		}
+	}
+	return false;
+}
+
 void DLHor::push_front(string pClass, string ClassID, string IDAlum) {
 	if (aHead == NULL) {
 		aHead = getNewNode(pClass, ClassID);
@@ -435,6 +499,67 @@ void DLHor::push_front(string pClass, string ClassID, string IDAlum) {
 	}
 }
 
+void DLHor::write(string pPath)
+{
+	if (aHead) {
+		ofstream lFile(pPath);
+		if (lFile.is_open()) {
+			PHNODE lTemp = aHead;
+			while (lTemp) {
+				lFile << lTemp->sID << endl;
+				lFile << lTemp->sClas << endl;
+				if (lTemp->sVer) {
+					lTemp->sVer->resetCurr();
+					PVNODE lItem = NULL;
+					while (lItem = lTemp->sVer->get()) {
+						lFile << "\t" << lItem->ID << "|" << lItem->sCalif[0] << "|" << lItem->sCalif[1] << "|" << lItem->sCalif[2] << endl;
+					}
+				}
+				lTemp = lTemp->sNext;
+			}
+			lFile.close();
+		}
+	}
+} // write
+
+void DLHor::read(string pPath)
+{
+	string lLine = "";
+	ifstream lFile(pPath);
+	string lCat = "";
+	string lClas = "";
+	strVec lOut;
+	int num = 0;
+	if (lFile) {
+		cout << "hay archivo" << endl;
+	}
+	else {
+		cout << "No hay archivo" << endl;
+	}
+	while (getline(lFile, lLine)) {
+		if (lLine[0] != '\t') {
+			if (num == 0) {
+				lCat = lLine;
+				num++;
+			}
+			else if(num == 1) {
+				lClas = lLine;
+				num--;
+			}
+		}
+		else{
+			if (lCat != "") {
+				lLine.replace(lLine.find("\t"), 1, "");
+				strSplit(lLine, '|', lOut);
+				cout << lOut[0] << endl;
+				push_backLoad(lClas, lCat, lOut[0], stoi(lOut[1]), stoi(lOut[2]), stoi(lOut[3]));
+				lOut.clear();
+			}
+		}
+	}
+
+	lFile.close();
+} // read
 
 void DLHor::push_back(string pClass, string ClassID, string IDAlum) {
 	if (aHead == NULL) {

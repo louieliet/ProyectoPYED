@@ -1,0 +1,11 @@
+0003
+L¢gica de la computaci¢n
+	1|0|0|0
+4444
+Ecuaciones Diferenciales
+	1|0|0|0
+	3|0|0|0
+2222
+Etica
+	2|0|0|0
+	3|0|0|0
