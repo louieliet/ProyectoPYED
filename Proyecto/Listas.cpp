@@ -546,20 +546,18 @@ PDNODE DList::getNewNode(string pNombre, string pSalon, string pProfesor, string
     return lTemp;// te regresa el nodo
 } // getNewNode
 
-void DList::modify(ECampos pCampo, string pNombre) {
-    string newdata;
+void DList::modify(ECampos pCampo, string pNombre, string pNuevo) {
     PDNODE lTemp = find(pNombre);
     if (lTemp) {
 
-        cout << "Ingrese el nuevo dato: " << endl;
-        getline(cin, newdata);
+        
         switch (pCampo) {
 
-        case ECampos::nombre: lTemp->sData->sNombre = newdata; break;
-        case ECampos::salon: lTemp->sData->sSalon = newdata; break;
-        case ECampos::profesor: lTemp->sData->sProfesor = newdata; break;
-        case ECampos::disponibilidad: lTemp->sData->sDisponibilidad = newdata; break;
-        case ECampos::id: lTemp->sData->sID = newdata; break;
+        case ECampos::nombre: lTemp->sData->sNombre = pNuevo; break;
+        case ECampos::salon: lTemp->sData->sSalon = pNuevo; break;
+        case ECampos::profesor: lTemp->sData->sProfesor = pNuevo; break;
+        case ECampos::disponibilidad: lTemp->sData->sDisponibilidad = pNuevo; break;
+        case ECampos::id: lTemp->sData->sID = pNuevo; break;
 
         }
     }
@@ -672,6 +670,7 @@ void aClase::addClase(string profeID) {
 
 void aClase::ModificarDatoDeClase() {
     string pNombre;
+    string newdata;
     int auxiliar;
     cout << "Modificar datos" << endl;
     cout << "Ingrese el ID de la materia: ";
@@ -684,12 +683,18 @@ void aClase::ModificarDatoDeClase() {
     cin >> auxiliar;
     cin.ignore();
     PHNODE temp = classes.find(pNombre);
+    //cout<<"clase encontrada - "<<temp->sID<<endl;
+
+    cout << "Ingrese el nuevo dato: " << endl;
+    getline(cin, newdata);
+
     switch (auxiliar) {
-    case 1: aux.modify(ECampos::nombre, pNombre); temp->sClas = pNombre; break;
-    case 2: aux.modify(ECampos::salon, pNombre); break;
-    case 3: aux.modify(ECampos::profesor, pNombre); break;
-    case 4:aux.modify(ECampos::id, pNombre); temp->sID = pNombre; break;
+    case 1: aux.modify(ECampos::nombre, pNombre, newdata); temp->sClas = newdata; break;
+    case 2: aux.modify(ECampos::salon, pNombre, newdata); break;
+    case 3: aux.modify(ECampos::profesor, pNombre, newdata); break;
+    case 4:aux.modify(ECampos::id, pNombre, newdata); temp->sID = newdata; break;
     }
+    //cout<<"clase actualizada - "<<temp->sID<<endl;
 
     aux.write("Libro2.csv");
 }

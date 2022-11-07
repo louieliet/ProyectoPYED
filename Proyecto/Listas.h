@@ -99,7 +99,7 @@ public:
     void del(string); //borra un elemento cualquiera de la lista
     bool isEmpty(void);
     void repr(ECampos pCampo, bool pRev = false);
-    void modify(ECampos, string);
+    void modify(ECampos, string, string);
 
     void read(string pPath);
     void write(string pPath);
