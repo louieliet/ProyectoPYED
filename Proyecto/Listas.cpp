@@ -714,6 +714,8 @@ int main() {
         cout << "15. Mostrar Administradores" << endl;
         cout << "16. Inscribir materias" << endl;
         cout << "17. Ver Inscripciones" << endl;
+        cout << "18. Guardar inscripciones" << endl;
+        cout << "19. Subir inscripciones" << endl;
         cin >> opci;
         cin.ignore();
         switch (opci) {
@@ -734,9 +736,11 @@ int main() {
         case 15:sob.admi.repr(); break;
         case 16:sob.MeterMateria("0236847"); break;
         case 17:sob.classes.repr(); break;
+        case 18:sob.classes.write("Inscripciones.txt"); break;
+        case 19:sob.classes.read("Inscripciones.txt"); break;
 
 
         }
-    } while (opci != 18);
+    } while (opci != 20);
 
 }
