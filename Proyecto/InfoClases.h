@@ -44,9 +44,6 @@ public:
     PVNODE get(void);
     void repr(bool pRev = false);
 
-    void read(string Path);
-    void write(string Path);
-
 private:
     void push_front(string ID);
     void push_frontLoad(string IDAlum, int calif1, int calif2, int calif3);
