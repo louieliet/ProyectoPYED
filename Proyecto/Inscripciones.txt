@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 0003
 L¢gica de la computaci¢n
 	1|0|0|0
@@ -9,3 +10,11 @@ Ecuaciones Diferenciales
 Etica
 	2|0|0|0
 	3|0|0|0
+=======
+4444
+Ecuaciones Diferenciales
+	0236847|0|0|0
+2222
+Etica
+	0236847|0|0|0
+>>>>>>> 6cfbbd4c93a26c2bfe184a3bd058fb3eae84202f

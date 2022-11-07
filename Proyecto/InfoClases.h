@@ -44,7 +44,9 @@ public:
     bool isEmpty(void);
     PVNODE get(void);
     void repr(bool pRev = false);
-    bool has(string pID);
+
+    void read(string Path);
+    void write(string Path);
 
 private:
     void push_front(string ID);

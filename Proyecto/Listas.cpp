@@ -945,6 +945,6 @@ int main() {
             case 19:sob.classes.read("Inscripciones.txt"); break;
         }
         */
-    } while (opci != 20);
+    } while (opci != 0);
     
 }
