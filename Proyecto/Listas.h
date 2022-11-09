@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 #include <chrono>
+#include "Profesors.h"
+#include "InfoClases.h"
 
 using namespace std;
 
@@ -101,6 +103,8 @@ public:
     void repr(ECampos pCampo, bool pRev = false);
     void modify(ECampos, string, string);
 
+    bool has(string);
+
     void read(string pPath);
     void write(string pPath);
     string getName(string ID);
@@ -113,3 +117,31 @@ private:
     //PDNODE search(string pNombre);
     PDNODE getNewNode(string pNombre, string pSalon, string pProfesor, string pDisponibilidad, string pID);
 }; //DINDEX
+
+
+class aClase {
+
+protected:
+    string ynombre;
+    string yprofesor;
+    string ysalon;
+    string yDisponibilidad;
+    string yID;
+    DList aux;
+
+public:
+    DListProf prof;
+    DListAlumno alumn;
+    DListAdmin admi;
+    DLHor classes;
+    aClase();
+    void addClase(void);
+    void addClase(string profeID);
+    void ModificarDatoDeClase(void);
+    void EliminarClase();
+    void mostrarClases();
+    void InsertData();
+    void GuardarData();
+    void MeterMateria(string);
+    void mostrarClasesProf(string pID);
+};

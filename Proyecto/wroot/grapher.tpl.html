@@ -1,0 +1,123 @@
+<html>
+	<head>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+		<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8' crossorigin='anonymous'></script>
+		<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+	</head>
+	<body>
+	
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<a class="navbar-brand" href="/"><b>&nbsp;&nbsp;&nbsp;Graficador</b></a>
+		</nav>
+		
+		<br>
+		
+		<div class="container-fluid">
+		
+			<div class="row">
+				<div class="col-md-12">
+					<form class="form-horizontal" name="frmGraph" action="/graficador" method="GET">
+						<fieldset>
+							<legend>Datos a Graficar</legend>
+							
+							<div class="row">
+								<div class="col-md-4">
+									<label class="control-label" for="rmin"><b>Rango Inicio:</b> </label>
+									<br>
+									<input id="rmin" name="rmin" type="text" placeholder="-10.0" class="form-control input-md"
+										value="{{pRMin}}">
+									</input>
+									<span class="help-block">Cota izquierda</span>  
+								</div>
+								
+								<div class="col-md-4">
+									<label class="control-label" for="rmax"><b>Rango Fin:</b> </label>
+									<br>
+									<input id="rmax" name="rmax" type="text" placeholder="10.0" class="form-control input-md"
+										value="{{pRMax}}">
+									</input>
+									<span class="help-block">Cota derecha</span>  
+								</div>
+								
+								<div class="col-md-4">
+									<label class="control-label" for="step"><b>Delta:</b> </label>
+									<br>
+									<input id="step" name="step" type="text" placeholder="0.25" class="form-control input-md"
+										value="{{pStep}}">
+									</input>
+									<span class="help-block">Incrementos de c&aacute;lculo</span>  
+								</div>
+							</div>
+							
+							<br>
+							<div class="row">
+								<div class="col-md-8">
+									<label class="control-label" for="func"><b>Funci&oacute;n:</b> </label>
+									<br>
+									<input id="func" name="func" type="text" placeholder="x;2;*;5;+" class="form-control input-md"
+										value="{{pFunc}}">
+									</input>
+									<span class="help-block">Con x min&uacute;scula y en notaci&oacute;n infija</span>  
+								</div>
+								<div class="col-md-4">
+									<br>
+									<button type="submit" id="send" name="send" value="send" class="btn btn-success">Graficar</button>
+								</div>
+							</div>
+							
+						</fieldset>
+					</form>
+
+				</div>
+			</div>
+			
+			<br>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div id='chart_div'></div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<br>
+		<br>
+		
+		<script type='text/javascript'>
+		
+			function prShowGraph()
+			{
+				var lPairs = [{{pData}}];
+				
+				if (lPairs.length > 0) {
+					var data = new google.visualization.DataTable();
+					data.addColumn('number', 'X');
+					data.addColumn('number', 'Y');
+
+					data.addRows(lPairs);
+
+					var options = {
+						hAxis: {
+							title: 'Valores'
+						},
+						vAxis: {
+							title: 'Magnitud'
+						},
+						backgroundColor: '#f1f8e9',
+						height: 400,
+					};
+
+					var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+					chart.draw(data, options);
+				}
+			} // prShowGraph
+			
+			google.charts.load('current', {
+				packages: ['corechart', 'line']
+			});
+			google.charts.setOnLoadCallback(prShowGraph);
+
+		</script>
+	</body>
+</html>

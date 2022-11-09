@@ -1,0 +1,125 @@
+<html>
+	<head>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+		<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8' crossorigin='anonymous'></script>
+	</head>
+	<body>
+	
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<a class="navbar-brand" href="/"><b>&nbsp;&nbsp;&nbsp;Personas</b></a>
+		</nav>
+		
+		<br>
+		
+		<div class="container-fluid">
+		
+			<div class="row">
+				<div class="col-md-12">
+				
+					<form class="form-horizontal" name="frmPeople" action="/indexada" method="GET">
+						<fieldset>
+							<legend>Registrar una persona</legend>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<label class="control-label" for="nombre"><b>Nombre:</b> </label>
+									<br>
+									<input id="nombre" name="nombre" type="text" placeholder="" class="form-control input-md">
+									</input>
+								</div>
+								
+								<div class="col-md-3">
+									<label class="control-label" for="apellido"><b>Apellido:</b> </label>
+									<br>
+									<input id="apellido" name="apellido" type="text" placeholder="" class="form-control input-md">
+									</input>
+								</div>
+								
+								<div class="col-md-2">
+									<label class="control-label" for="fnac"><b>Fecha de nacimiento:</b> </label>
+									<br>
+									<input id="fnac" name="fnac" type="date" placeholder="" class="form-control input-md">
+									</input>
+								</div>
+								
+								<div class="col-md-2">
+									<label class="control-label" for="salario"><b>Salario:</b> </label>
+									<br>
+									<input id="salario" name="salario" type="number" placeholder="" class="form-control input-md">
+									</input>
+								</div>
+								
+								<div class="col-md-2">
+									<br>
+									<button type="submit" id="send" name="send" value="send" class="btn btn-success">Registrar</button>
+								</div>
+							</div>
+							
+						</fieldset>
+					</form>
+					
+				</div>
+			</div>
+			
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+				
+					<div class="card border-primary">
+						<div class="card-header bg-primary text-light"><b>Personas Registradas</b></div>
+						<div class="card-body">
+							
+							<form class="form-horizontal" name="frmPeople" action="/indexada" method="GET">
+								<fieldset>
+									<legend>Personas Registradas</legend>
+									
+									<div class="row">
+										<div class="col-md-6">
+											<label class="control-label" for="orden"><b>Listar por:</b> </label>
+											<br>
+											<select id="orden" name="orden" class="form-control input-md">
+												<option value=""> - Seleccione - </option>
+												<option value="0">Nombre</option>
+												<option value="1">Apellido</option>
+												<option value="2">F. Nacimiento</option>
+												<option value="3">Salario</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<br>
+											<button type="submit" id="show" name="show" value="show" class="btn btn-success">Listar</button>
+										</div>
+									</div>
+									
+								</fieldset>
+							</form>
+							
+							<br>
+							<div class="row">
+								<div class="col-md-3">
+									<b>Nombre</b>
+								</div>
+								<div class="col-md-3">
+									<b>Apellido</b>
+								</div>
+								<div class="col-md-3">
+									<b>F. Nac.</b>
+								</div>
+								<div class="col-md-3">
+									<b>Salario</b>
+								</div>
+							</div>
+							{{pData}}
+						</div>
+					</div>
+			
+				</div>
+			</div>
+			
+		</div>
+		
+		<br>
+		<br>
+		
+	</body>
+</html>
