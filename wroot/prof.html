@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <style>
+	.navbar-brand{
+    text-align: left;
+    color: white;
+    white-space: nowrap; 
+    width:30%;
+    float:left;
+}
+
+.navbar-user{
+    text-align:right;
+    color: white;
+    width:30%;
+    float:right;
+    vertical-align:bottom;
+}
+
+.navbar{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
+    height:10%;
+    white-space: nowrap; 
+    background-color:rgb(139, 24, 24);
+    border-radius:15px;
+}
+
+.navbar a:link{
+    color: hotpink;
+}
+
+.navbar a:visited{
+    color: white;
+}
+
+.navbar a:hover{
+    color: hotpink;
+}
+
+.navbar a:active{
+    color: white;
+}
+
+.navbar p{
+    display: inline-block;
+    width:50%;
+    vertical-align:middle;
+}
+.navbar-user a{
+    width:50%;
+}
+
+.navbar img{
+    padding-top:10px;
+    padding-left:10px;
+    margin-right:0px;
+    height:45px;
+    width:45px;
+    float:left;
+}
+
+.main table{
+    width:100%;
+}
+
+.main th:first-child{
+    width:10%;
+}
+
+.main th:nth-child(2){
+    width:25%;
+}
+
+.main th:nth-child(3){
+    width:40%;
+}
+
+.main th:nth-child(4){
+    width:10%;
+}
+
+.main th:last-child{
+    width:15%;
+}
+
+#inscr th:nth-child(2){
+    width:20%
+}
+
+#inscr th:nth-child(3){
+    width:20%
+}
+
+.main td{
+	text-align:center;
+}
+	</style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <img src="https://i.ibb.co/WWxNctq/escudo.png">
+        <p class="navbar-brand"><b>&nbsp;&nbsp;&nbsp;Universidad Panamericana</b></p>
+        <div class="navbar-user">
+            <p><b>&nbsp;&nbsp;&nbsp;{{pUserID}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></p>
+            <a href="/main.html" id="navbar-link"><b>Log Out</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </nav>
+
+    <br>
+
+    <div class="main">
+    <h3><b>Mis clases</b></h3>
+        <table id="inscr">
+            <tr>
+                <th><b>ID</b></th>
+                <th><b>Clase</b></th>
+                <th><b>Salón</b></th>
+                <th><b>Disponibilidad</b></th>
+                <th></th>
+            </tr>
+            <div>
+            {{pClasesProf}}
+            </div>
+        </table>
+
+    </div>
+
+    <br>
+    <br>
+
+</body>
+
+</html>
