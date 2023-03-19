@@ -202,9 +202,6 @@ string Wmain(string pCaller) {
 int main() {
 
     MyHTTPSrv lSrv = MyHTTPSrv(NULL, NULL);
-    //lSrv.SetGetFunc(&fnGetFuncS);
-    //lSrv.Run();
-
 
     int opci, subs = 1;
     //sob.admi.InsertarAdmin();
@@ -213,15 +210,15 @@ int main() {
     sob.alumn.read("Alumnos.csv");
     sob.classes.read("Inscripciones.txt");
     sob.InsertData();
-    lSrv.SetGetFunc(&Wmain); 
-    lSrv.Run();
-    /*do {
+
+    do {
         system("CLS");
         cout << "BIENVENIDO AL SISTEMA DE LA UNIVERSIDAD UP" << endl;
         cout << "0. Salir" << endl;
         cout << "1. Ingresar como administrador" << endl;
         cout << "2. Ingresar como profesor" << endl;
         cout << "3. Ingresar como alumno" << endl;
+        cout << "4. Ver online" << endl;
         cin >> opci;
         cin.ignore();
         if(opci==1){
@@ -282,7 +279,8 @@ int main() {
                     system("pause");
                 }while(subs!=0);
             }
-        }else if(opci==2){
+        }
+        else if(opci==2){
             string uss, pas;
             cout<<"Ingrese el ID del profesor >> ";
             cin >> uss;
@@ -315,7 +313,8 @@ int main() {
                     system("pause");
                 }while(subs!=0);
             }
-        }else if(opci==3){
+        }
+        else if(opci==3){
             string uss, pas;
             cout<<"Ingrese el ID del alumno >> ";
             cin >> uss;
@@ -348,7 +347,11 @@ int main() {
                 }while(subs!=0);
             }
         }
+        else if (opci == 4) {
+            lSrv.SetGetFunc(&Wmain);
+            lSrv.Run();
+        }
 
-    } while (opci != 0);*/
+    } while (opci != 0);
     
 }
