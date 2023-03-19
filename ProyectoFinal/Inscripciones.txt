@@ -1,7 +1,0 @@
-1234
-L¢gica de la computaci¢n
-	1|9|9.4|0
-2222
-Etica
-	2|0|0|0
-	3|7.8|0|0
